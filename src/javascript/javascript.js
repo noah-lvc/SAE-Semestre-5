@@ -50,3 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCarousel();
 });
+
+function toggleMenu() {
+    const menu = document.getElementById('menu-deroulant');
+    menu.classList.toggle('active');
+}
+
+// Ferme le menu si on clique ailleurs
+window.addEventListener('click', function(e) {
+    const menu = document.getElementById('menu-deroulant');
+    const burger = document.querySelector('.menu-burger');
+    if (!menu.contains(e.target) && !burger.contains(e.target)) {
+        menu.classList.remove('active');
+    }
+});

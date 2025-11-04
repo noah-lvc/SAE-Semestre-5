@@ -520,3 +520,66 @@ footer p {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* optionnel, léger effet visuel */
     border: none; /* pas de contour */
 }
+
+.creation-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    padding: 60px 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.creation-container section {
+    background-color: #8B90AC;
+    border: 2px solid #1e1e2f;
+    border-radius: 15px;
+    padding: 35px;
+    width: 30%;
+    min-width: 300px;
+    color: #16264b;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.creation-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #16264b;
+}
+
+.creation-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.creation-container input[type='text'],
+.creation-container input[type='password'],
+.creation-container input[type='file'] {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.creation-container button {
+    background-color: #1e1e2f;
+    color: white;
+    border: 2px solid #1e1e2f;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    width: 60%;
+    margin: 15px auto 0 auto;
+}
+
+.creation-container button:hover {
+    background-color: lightgrey;
+    color: #1e1e2f;
+}

@@ -1,0 +1,44 @@
+<div class="barnav">
+    <a href="../pages/accueil.php"><img src="../images/logo.jpg" alt="Logo du site" class="logo"></a>
+    <h1>Nom du site</h1>
+    <nav>
+        <ol>
+            <li><button type="button" class="button_barnav" onclick="openModal('inscription')">Inscription</button></li>
+            <li><button type="button" class="button_barnav" onclick="openModal('connexion')">Connexion</button></li>
+        </ol>
+    </nav>
+</div>
+
+<script src="../javascript/javascript.js"></script>
+
+<div id="inscription" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('inscription')">&times;</span>
+        <h2>Inscription</h2>
+        <form>
+            <label for="login-inscription">Login</label><br>
+            <input type="text" id="login-inscription" placeholder="Login" required><br>
+            <label for="mdp-inscription">Mot de passe</label><br>
+            <input type="password" id="mdp-inscription" placeholder="Mot de passe" required><br>
+            <label for="mdp-inscription-confirmation">Confirmer le mot de passe</label><br>
+            <input type="password" id="mdp-inscription-confirmation" placeholder="Mot de passe" required><br>
+            <p>J'ai déjà un compte ? <a href="#" onclick="switchModal('inscription','connexion')">Connectez-vous</a>.</p>
+            <button type="submit">S'inscrire</button>
+        </form>
+    </div>
+</div>
+
+<div id="connexion" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('connexion')">&times;</span>
+        <h2>Connexion</h2>
+        <form>
+            <label for="login-connexion">Login</label><br>
+            <input type="text" id="login-connexion" placeholder="Login" required><br>
+            <label for="mdp-connexion">Mot de passe</label><br>
+            <input type="password" id="mdp-connexion" placeholder="Mot de passe" required><br>
+            <p>Pas encore de compte ? <a href="#" onclick="switchModal('connexion','inscription')">Créez-en un</a>.</p>
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+</div>

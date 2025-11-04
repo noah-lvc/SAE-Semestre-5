@@ -427,3 +427,96 @@ footer p {
 .avatar-text:hover {
     background-color: #a1a6c4;
 }
+
+.profil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    background-color: #f8f8f8;
+    padding: 50px 20px;
+}
+
+.profil-form {
+    background-color: #8B90AC;
+    border: 2px solid #1e1e2f;
+    border-radius: 15px;
+    padding: 30px 40px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.profil-form input[type='password'] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.profil-form button[type='submit'] {
+    background-color: #1e1e2f;
+    color: white;
+    border: 2px solid #1e1e2f;
+    padding: 12px;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.profil-form button[type='submit']:hover {
+    background-color: lightgrey;
+    color: #1e1e2f;
+    font-weight: bold;
+}
+
+.profil-actions {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.profil-actions button {
+    border: 2px solid #1e1e2f;
+    background-color: white;
+    color: #1e1e2f;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profil-actions button:hover {
+    background-color: lightgrey;
+}
+
+.profil-actions .delete-btn {
+    color: red;
+    border-color: red;
+}
+
+.pfp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.pfp img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* rend l'image parfaitement ronde */
+    object-fit: cover;  /* évite la déformation */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* optionnel, léger effet visuel */
+    border: none; /* pas de contour */
+}

@@ -406,3 +406,24 @@ footer p {
     background-color: #8B90AC;
     color: #1e1e2f;
 }
+
+.avatar-text {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #8B90AC;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+}
+
+.avatar-text:hover {
+    background-color: #a1a6c4;
+}

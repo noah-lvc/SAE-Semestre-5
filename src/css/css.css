@@ -326,3 +326,83 @@ footer p {
     font-size: 14px;
     color: #bbb;
 }
+
+.barnav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: auto;
+}
+
+.menu-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.menu-burger .bar {
+    height: 4px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.menu-deroulant {
+    display: none;
+    position: absolute;
+    top: 80px;
+    right: 90px;
+    background-color: #1e1e2f;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+    z-index: 999;
+    overflow: hidden;
+    min-width: 230px;
+}
+
+.menu-deroulant.active {
+    display: block;
+}
+
+.menu-deroulant ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-deroulant li {
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.menu-deroulant li:last-child {
+    border-bottom: none;
+}
+
+.menu-deroulant a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 18px 25px;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-deroulant a:hover {
+    background-color: #8B90AC;
+    color: #1e1e2f;
+}

@@ -12,15 +12,15 @@ echo "
 
     <div class='carousel-track'>
         <video class='carousel-item left' autoplay loop muted playsinline>
-            <source src='../images/video2.mp4' type='video/mp4'>
+            <source src='../videos/video2.mp4' type='video/mp4'>
             Votre navigateur ne prend pas en charge cette vidéo.
         </video>
         <video class='carousel-item center' autoplay loop muted playsinline>
-            <source src='../images/video1.mov' type='video/mp4'>
+            <source src='../videos/video1.mov' type='video/mp4'>
             Votre navigateur ne prend pas en charge cette vidéo.
         </video>
         <video class='carousel-item right' autoplay loop muted playsinline>
-            <source src='../images/video3.mp4' type='video/mp4'>
+            <source src='../videos/video3.mp4' type='video/mp4'>
             Votre navigateur ne prend pas en charge cette vidéo.
         </video>
     </div>

@@ -3,7 +3,7 @@
 | Stratégique 🪁 | Utlisateur 🌊 | Sous-fonction 🐟 |
 |--|--|--|
 |Consulter le journal d'activités|Se connecter à la plateforme|Enregistrer le résultat des calculs dans un historique|
-|Supprimer un compte|S'inscrire sur la plateforme|Enregistrer un fichier log|
+|Supprimer un compte|Créer un compte|Enregistrer un fichier log|
 ||Consulter les résultats du calcul|Vérifier la validité du contenu du formulaire de connexion|
 ||Effectuer un calcul|Vérifier la validité du contenu du formulaire d'inscription|
 ||Se déconnecter|Ajouter une activité au journal d'activités|

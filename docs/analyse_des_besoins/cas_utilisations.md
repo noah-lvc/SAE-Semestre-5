@@ -8,7 +8,7 @@
 ||Effectuer un calcul|Vérifier la validité du contenu du formulaire d'inscription|
 ||Se déconnecter|Ajouter une activité au journal d'activités|
 ||Modifier son mot de passe|Exécuter les tâches reçues du serveur web|
-|||Répartir le calcul sur les nœuds du cluster|
+||Supprimer son compte|Répartir le calcul sur les nœuds du cluster|
 |||Communiquer les résultats au serveur maître|
 |||Transmettre les résultats au serveur web|
 

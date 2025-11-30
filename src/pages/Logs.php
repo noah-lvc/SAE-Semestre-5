@@ -34,6 +34,7 @@ echo"
        width: 70%;
        border-collapse: collapse;
        margin: auto;
+       margin-bottom: 300px;
        font-size: 18px;
    }
 
@@ -44,7 +45,7 @@ echo"
    }
 
    th {
-       background-color: #1c305f;
+       background-color: #1e1e2f;
        color: white;
        font-weight: bold;
    }
@@ -52,6 +53,26 @@ echo"
    tr:hover {
        background-color: #ddd;
    }
+   .button_barnav {
+        background-color: #1e1e2f;
+        color: #fff;
+        border: 2px solid;
+        padding: 20px;
+        margin-top: 20px;
+        margin: auto;
+        margin-bottom: 80px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: block;
+    }
+    
+    .button_barnav:hover {
+        border: 2px solid #1e1e2f ;
+        background-color: lightgrey;
+        color: #1e1e2f;
+    }
 </style>
 </head>
 <body>";

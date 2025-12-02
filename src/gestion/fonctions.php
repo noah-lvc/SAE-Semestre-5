@@ -13,7 +13,7 @@ function afficherBarnav() {
                 include '../templates/barnavAdminSys.html';
                 break;
             case 'connected':
-                include '../templates/barnavConnected.html';
+                include '../templates/barnavConnected.php';
                 break;
             default:
                 include '../templates/barnav.php';

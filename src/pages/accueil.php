@@ -1,11 +1,15 @@
 <?php
+session_start();
 include_once "../templates/header.html";
 
 echo"
 <title>Accueil</title>
 </head>
 <body>";
-include_once "../templates/barnav.html";
+
+include_once "../gestion/fonctions.php";
+afficherBarnav();
+
 echo "
 <div class='video-carousel'>
     <button class='carousel-btn left'>&lt;</button>

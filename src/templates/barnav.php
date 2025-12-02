@@ -70,37 +70,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-connexion'], $_
     $login = trim($_POST['login-connexion']);
     $mdp = trim($_POST['mdp-connexion']);
 
-    $stmt = $pdo->prepare("SELECT id FROM user WHERE login = ?");
-    $stmt->execute([$login]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        $messageConnexion = "Login inexistant.";
-        $modalToOpen = 'connexion';
-    } else {
-        $stmt = $pdo->prepare("SELECT password FROM password WHERE user_id = ?");
-        $stmt->execute([$user['id']]);
-        $passRow = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$passRow || $mdp !== $passRow['password']) {
-            $messageConnexion = "Mot de passe incorrect.";
-            $modalToOpen = 'connexion';
-        } else {
+    if ($login === 'adminweb') {
+        if ($mdp === 'adminweb') {
             $_SESSION['login'] = $login;
-
-            if ($login === 'adminweb') {
-                $_SESSION['profil'] = 'adminweb';
-            } elseif ($login === 'adminsys') {
-                $_SESSION['profil'] = 'adminsys';
-            } else {
-                $_SESSION['profil'] = 'connected';
-            }
+            $_SESSION['profil'] = 'adminweb';
 
             $insertLog = $pdo->prepare("INSERT INTO logs (ip_address, login, date, action) VALUES (?, ?, NOW(), ?)");
             $insertLog->execute([$_SERVER['REMOTE_ADDR'], $login, 'connexion']);
 
             header("Location: ../pages/accueil.php");
             exit();
+        } else {
+            $messageConnexion = "Mot de passe incorrect.";
+            $modalToOpen = 'connexion';
+        }
+    } elseif ($login === 'adminsys') {
+        if ($mdp === 'adminsys') {
+            $_SESSION['login'] = $login;
+            $_SESSION['profil'] = 'adminsys';
+
+            $insertLog = $pdo->prepare("INSERT INTO logs (ip_address, login, date, action) VALUES (?, ?, NOW(), ?)");
+            $insertLog->execute([$_SERVER['REMOTE_ADDR'], $login, 'connexion']);
+
+            header("Location: ../pages/accueil.php");
+            exit();
+        } else {
+            $messageConnexion = "Mot de passe incorrect.";
+            $modalToOpen = 'connexion';
+        }
+    } else {
+        $stmt = $pdo->prepare("SELECT id FROM user WHERE login = ?");
+        $stmt->execute([$login]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            $messageConnexion = "Login inexistant.";
+            $modalToOpen = 'connexion';
+        } else {
+            $stmt = $pdo->prepare("SELECT password FROM password WHERE user_id = ?");
+            $stmt->execute([$user['id']]);
+            $passRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$passRow || $mdp !== $passRow['password']) {
+                $messageConnexion = "Mot de passe incorrect.";
+                $modalToOpen = 'connexion';
+            } else {
+                $_SESSION['login'] = $login;
+                $_SESSION['profil'] = 'connected';
+
+                $insertLog = $pdo->prepare("INSERT INTO logs (ip_address, login, date, action) VALUES (?, ?, NOW(), ?)");
+                $insertLog->execute([$_SERVER['REMOTE_ADDR'], $login, 'connexion']);
+
+                header("Location: ../pages/accueil.php");
+                exit();
+            }
         }
     }
 }

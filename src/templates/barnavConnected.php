@@ -54,7 +54,6 @@ $avatarSrc = $profil_picture ? "../images/pfp/$profil_picture" : "../images/defa
         <ul>
             <li><a href="../pages/profil.php">Profil</a></li>
             <li><a href="">Calcul</a></li>
-            <li><a href="">Historique</a></li>
         </ul>
     </nav>
 </div>

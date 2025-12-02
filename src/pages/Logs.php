@@ -21,8 +21,6 @@ if (isset($_POST['download_json'])) {
 }
 
 include_once "../templates/header.html";
-include_once "../gestion/fonctions.php";
-afficherBarnav();
 
 echo "
 <title>Logs</title>
@@ -76,6 +74,9 @@ echo "
 </head>
 <body>
 ";
+
+include_once "../gestion/fonctions.php";
+afficherBarnav();
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Base des Logs</h1>";
 

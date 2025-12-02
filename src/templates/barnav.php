@@ -15,7 +15,9 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-$message = '';
+$messageInscription = '';
+$messageConnexion = '';
+$modalToOpen = '';
 
 $elem1 = rand(1, 10);
 $elem2 = rand(1, 10);
@@ -29,28 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-inscription'], 
     $captcha = trim($_POST['captcha']);
 
     if ($mdp !== $mdp_confirm) {
-        $message = "Les mots de passe ne correspondent pas.";
+        $messageInscription = "Les mots de passe ne correspondent pas.";
     } elseif (strlen($login) < 4) {
-        $message = "Le login doit contenir au moins 4 caractères.";
+        $messageInscription = "Le login doit contenir au moins 4 caractères.";
     } elseif (strlen($mdp) < 6) {
-        $message = "Le mot de passe doit contenir au moins 6 caractères.";
+        $messageInscription = "Le mot de passe doit contenir au moins 6 caractères.";
     } elseif (!isset($_COOKIE['captcha']) || $captcha != $_COOKIE['captcha']) {
-        $message = "Captcha incorrect. Veuillez réessayer.";
+        $messageInscription = "Captcha incorrect. Veuillez réessayer.";
     } else {
         $stmt = $pdo->prepare("SELECT id FROM user WHERE login = ?");
         $stmt->execute([$login]);
 
         if ($stmt->rowCount() > 0) {
-            $message = "Ce login existe déjà.";
+            $messageInscription = "Ce login existe déjà.";
         } else {
             $insertUser = $pdo->prepare("INSERT INTO user (login) VALUES (?)");
             $insertUser->execute([$login]);
             $userId = $pdo->lastInsertId();
 
-            $hashed = strtoupper(bin2hex(random_bytes(8)));
-
             $insertPass = $pdo->prepare("INSERT INTO password (user_id, password) VALUES (?, ?)");
-            $insertPass->execute([$userId, $hashed]);
+            $insertPass->execute([$userId, $mdp]);
 
             $insertLog = $pdo->prepare("INSERT INTO logs (ip_address, login, date, action) VALUES (?, ?, NOW(), ?)");
             $insertLog->execute([$_SERVER['REMOTE_ADDR'], $login, 'inscription']);
@@ -60,9 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-inscription'], 
 
             header("Location: ../pages/accueil.php");
             exit();
-
         }
     }
+
+    if ($messageInscription) $modalToOpen = 'inscription';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-connexion'], $_POST['mdp-connexion'])) {
@@ -74,15 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-connexion'], $_
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        $message = "Login inexistant.";
+        $messageConnexion = "Login inexistant.";
         $modalToOpen = 'connexion';
     } else {
         $stmt = $pdo->prepare("SELECT password FROM password WHERE user_id = ?");
         $stmt->execute([$user['id']]);
         $passRow = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (empty($mdp)) {
-            $message = "Mot de passe vide.";
+        if (!$passRow || $mdp !== $passRow['password']) {
+            $messageConnexion = "Mot de passe incorrect.";
             $modalToOpen = 'connexion';
         } else {
             $_SESSION['login'] = $login;
@@ -138,9 +139,8 @@ echo "
             <p>J'ai déjà un compte ? <a href='#' onclick='switchModal(\"inscription\",\"connexion\")'>Connectez-vous</a>.</p>
             <button type='submit'>S'inscrire</button>";
 
-if ($message) {
-    $color = (str_contains($message, 'réussie')) ? 'green' : 'red';
-    echo "<p style='color:$color; text-align:center; margin-top:10px;'>".htmlspecialchars($message)."</p>";
+if ($messageInscription) {
+    echo "<p style='color:red; text-align:center; margin-top:10px;'>".htmlspecialchars($messageInscription)."</p>";
 }
 
 echo "
@@ -158,14 +158,19 @@ echo "
             <label for='mdp-connexion'>Mot de passe</label><br>
             <input type='password' id='mdp-connexion' name='mdp-connexion' placeholder='Mot de passe' required><br>
             <p>Pas encore de compte ? <a href='#' onclick='switchModal(\"connexion\",\"inscription\")'>Créez-en un</a>.</p>
-            <button type='submit'>Se connecter</button>
+            <button type='submit'>Se connecter</button>";
+
+if ($messageConnexion) {
+    echo "<p style='color:red; text-align:center; margin-top:10px;'>".htmlspecialchars($messageConnexion)."</p>";
+}
+
+echo "
         </form>
     </div>
 </div>
 ";
 
-if ($message) {
-    $modalToOpen = $modalToOpen ?? 'inscription';
+if ($modalToOpen) {
     echo "
     <script>
         document.addEventListener('DOMContentLoaded', () => {

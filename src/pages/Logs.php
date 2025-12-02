@@ -1,31 +1,10 @@
 <?php
 session_start();
 
-$cnx = mysqli_connect("localhost", "sae5", "sae5", "bd_cluster");
-if (!$cnx) {
-    die("Erreur de connexion : " . mysqli_connect_error());
-}
-
-$sql = "SELECT * FROM Logs ORDER BY STR_TO_DATE(Date, '%d/%m/%Y %H:%i:%s') DESC;";
-$resultat = mysqli_query($cnx, $sql);
-
-if (isset($_POST['download_json'])) {
-    header('Content-Type: application/json');
-    header('Content-Disposition: attachment; filename="logs.json"');
-    $logs = [];
-    while ($row = mysqli_fetch_assoc($resultat)) {
-        $logs[] = $row;
-    }
-    echo json_encode($logs, JSON_PRETTY_PRINT);
-    mysqli_close($cnx);
-    exit();
-}
-
-$resultat = mysqli_query($cnx, $sql);
-
 include_once "../templates/header.html";
-include_once "../templates/barnavAdminSys.html";
 
+include_once "../gestion/fonctions.php";
+afficherBarnav();
 
 echo"
 <title>Logs</title>
@@ -85,6 +64,28 @@ echo "
    <button type='submit' class='button_barnav' name='download_json'>Télécharger les logs en JSON</button>
 </form>
 ";
+
+$cnx = mysqli_connect("localhost", "sae5", "sae5", "bd_cluster");
+if (!$cnx) {
+    die("Erreur de connexion : " . mysqli_connect_error());
+}
+
+$sql = "SELECT * FROM Logs ORDER BY STR_TO_DATE(Date, '%d/%m/%Y %H:%i:%s') DESC;";
+$resultat = mysqli_query($cnx, $sql);
+
+if (isset($_POST['download_json'])) {
+    header('Content-Type: application/json');
+    header('Content-Disposition: attachment; filename="logs.json"');
+    $logs = [];
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        $logs[] = $row;
+    }
+    echo json_encode($logs, JSON_PRETTY_PRINT);
+    mysqli_close($cnx);
+    exit();
+}
+
+$resultat = mysqli_query($cnx, $sql);
 
 echo "<table>";
 $lignes = mysqli_fetch_assoc($resultat);

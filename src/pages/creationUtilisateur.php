@@ -5,7 +5,10 @@ echo"
 <title>Création Utilisateur</title>
 </head>
 <body>";
-include_once "../templates/barnav.html";
+
+include_once "../gestion/fonctions.php";
+afficherBarnav();
+
 echo "
 <main class='creation-container'>
     <section class='formulaire-inscription'>

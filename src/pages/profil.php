@@ -8,6 +8,7 @@ echo "
         color: #1e1e2f;
     }
     .form-supprimer-pfp .supprimer-pfp-button {
+        margin-bottom: 30px;
         background-color: lightgrey;
         border-color: #1e1e2f;
         color: #1e1e2f;
@@ -180,6 +181,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['SupprimerPfp'])) {
 
     header("Location: profil.php");
     exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ModifierMDP'])) {
+    $login = $_SESSION['login'];
+    $ancienMDP = $_POST['AncienMDP'] ?? '';
+    $nouveauMDP = $_POST['NouveauMDP'] ?? '';
+    $confirmerMDP = $_POST['ConfirmerMdp'] ?? '';
+
+    if ($nouveauMDP !== $confirmerMDP) {
+        echo "<p style='color:red; text-align:center; margin-top:10px;'>Les nouveaux mots de passe ne correspondent pas.</p>";
+    } else {
+        $stmt = $pdo->prepare("SELECT password FROM password WHERE user_id = (SELECT id FROM user WHERE login = ?)");
+        $stmt->execute([$login]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row || $ancienMDP !== $row['password']) {
+            echo "<p style='color:red; text-align:center; margin-top:10px;'>Ancien mot de passe incorrect.</p>";
+        } else {
+            $stmt = $pdo->prepare("UPDATE password SET password = ? WHERE user_id = (SELECT id FROM user WHERE login = ?)");
+            $stmt->execute([$nouveauMDP, $login]);
+
+            echo "<p style='color:green; text-align:center; margin-top:10px;'>Mot de passe mis à jour avec succès.</p>";
+        }
+    }
 }
 
 include_once "../templates/footer.html";

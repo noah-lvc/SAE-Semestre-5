@@ -2,7 +2,6 @@
 include_once "../templates/header.html";
 echo "
 <title>Profil</title>
-</head>
 <style>
     .profil-actions .delete-btn {
         color: #1e1e2f;
@@ -24,6 +23,7 @@ echo "
         background-color: darkgrey;
     }
 </style>
+</head>
 <body>
 ";
 include_once "../gestion/fonctions.php";

@@ -97,11 +97,20 @@ if (isset($_GET['delete'])) {
         $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($userRow) {
             $userId = $userRow['id'];
-            $stmtDeletePwd = $pdo->prepare("DELETE FROM password WHERE user_id = ?");
-            $stmtDeletePwd->execute([$userId]);
-            $stmtDeleteUser = $pdo->prepare("DELETE FROM user WHERE id = ?");
-            $stmtDeleteUser->execute([$userId]);
-            echo "<p style='color:green; text-align:center;'>Utilisateur $loginToDelete supprimé avec succès.</p>";
+            $pdo->beginTransaction();
+            try {
+                $stmtDeletePwd = $pdo->prepare("DELETE FROM password WHERE user_id = ?");
+                $stmtDeletePwd->execute([$userId]);
+                $stmtDeleteUser = $pdo->prepare("DELETE FROM user WHERE id = ?");
+                $stmtDeleteUser->execute([$userId]);
+                $stmtLog = $pdo->prepare("INSERT INTO logs (ip_address, login, date, action) VALUES (?, ?, NOW(), ?)");
+                $stmtLog->execute([$_SERVER['REMOTE_ADDR'], $loginToDelete, 'suppression_utilisateur']);
+                $pdo->commit();
+                echo "<p style='color:green; text-align:center;'>Utilisateur $loginToDelete supprimé avec succès.</p>";
+            } catch (Exception $e) {
+                $pdo->rollBack();
+                echo "<p style='color:red; text-align:center;'>Erreur lors de la suppression.</p>";
+            }
         } else {
             echo "<p style='color:red; text-align:center;'>Utilisateur introuvable.</p>";
         }

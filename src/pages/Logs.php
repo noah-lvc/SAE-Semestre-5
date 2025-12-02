@@ -1,12 +1,30 @@
 <?php
 session_start();
 
-include_once "../templates/header.html";
+$cnx = mysqli_connect("localhost", "sae5", "sae5", "bd_cluster");
+if (!$cnx) {
+    die("Erreur de connexion : " . mysqli_connect_error());
+}
 
+if (isset($_POST['download_json'])) {
+    $sql = "SELECT * FROM Logs ORDER BY Date DESC;";
+    $resultat = mysqli_query($cnx, $sql);
+    $logs = [];
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        $logs[] = $row;
+    }
+    header('Content-Type: application/json');
+    header('Content-Disposition: attachment; filename="logs.json"');
+    echo json_encode($logs, JSON_PRETTY_PRINT);
+    mysqli_close($cnx);
+    exit();
+}
+
+include_once "../templates/header.html";
 include_once "../gestion/fonctions.php";
 afficherBarnav();
 
-echo"
+echo "
 <title>Logs</title>
 <style>
    table {
@@ -32,19 +50,21 @@ echo"
    tr:hover {
        background-color: #ddd;
    }
+
    .button_barnav {
         background-color: #1e1e2f;
         color: #fff;
         border: 2px solid;
         padding: 20px;
         margin-top: 20px;
-        margin: auto;
         margin-bottom: 80px;
         font-size: 18px;
         border-radius: 8px;
         cursor: pointer;
-        transition: background-color 0.3s;
         display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: background-color 0.3s;
     }
     
     .button_barnav:hover {
@@ -54,8 +74,8 @@ echo"
     }
 </style>
 </head>
-<body>";
-
+<body>
+";
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Base des Logs</h1>";
 
@@ -65,26 +85,7 @@ echo "
 </form>
 ";
 
-$cnx = mysqli_connect("localhost", "sae5", "sae5", "bd_cluster");
-if (!$cnx) {
-    die("Erreur de connexion : " . mysqli_connect_error());
-}
-
-$sql = "SELECT * FROM Logs ORDER BY STR_TO_DATE(Date, '%d/%m/%Y %H:%i:%s') DESC;";
-$resultat = mysqli_query($cnx, $sql);
-
-if (isset($_POST['download_json'])) {
-    header('Content-Type: application/json');
-    header('Content-Disposition: attachment; filename="logs.json"');
-    $logs = [];
-    while ($row = mysqli_fetch_assoc($resultat)) {
-        $logs[] = $row;
-    }
-    echo json_encode($logs, JSON_PRETTY_PRINT);
-    mysqli_close($cnx);
-    exit();
-}
-
+$sql = "SELECT * FROM Logs ORDER BY Date DESC;";
 $resultat = mysqli_query($cnx, $sql);
 
 echo "<table>";
@@ -98,7 +99,10 @@ if ($lignes) {
 
     do {
         echo "<tr>";
-        foreach ($lignes as $value) {
+        foreach ($lignes as $key => $value) {
+            if ($key == 'Date') {
+                $value = date('d/m/Y H:i:s', strtotime($value));
+            }
             echo "<td>$value</td>";
         }
         echo "</tr>";

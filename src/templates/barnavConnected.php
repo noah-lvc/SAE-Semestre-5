@@ -53,7 +53,7 @@ $avatarSrc = $profil_picture ? "../images/pfp/$profil_picture" : "../images/defa
     <nav class="menu-deroulant" id="menu-deroulant">
         <ul>
             <li><a href="../pages/profil.php">Profil</a></li>
-            <li><a href="">Calcul</a></li>
+            <li><a href="../pages/prime.php">Calcul prime</a></li>
         </ul>
     </nav>
 </div>

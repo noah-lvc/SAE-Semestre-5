@@ -66,7 +66,7 @@ echo "
     <label>Nombre de workers (1 à 4)</label><br><br>
     <input type='number' name='nb_workers' min='1' max='4' value='4' required><br><br>
 
-    <label>Nombre total de tirages (Ntot)</label><br><br>
+    <label>Nombre total de tirages par worker (Ntot)</label><br><br>
     <input type='number' name='Ntot' min='1' value='400000' required><br><br>
 
     <input type='submit' name='run' value='Lancer le calcul'>

@@ -65,6 +65,10 @@ echo "
 <form method='post'>
     <label>Nombre de workers (1 à 4)</label><br><br>
     <input type='number' name='nb_workers' min='1' max='4' value='4' required><br><br>
+
+    <label>Nombre total de tirages (Ntot)</label><br><br>
+    <input type='number' name='Ntot' min='1' value='400000' required><br><br>
+
     <input type='submit' name='run' value='Lancer le calcul'>
 </form>
 ";
@@ -72,6 +76,8 @@ echo "
 if (isset($_POST['run'])) {
 
     $nb_workers = intval($_POST['nb_workers']);
+    $Ntot = intval($_POST['Ntot']);  // <-- récupération du nouveau paramètre
+
     $all_workers = [
         ["user" => "rpi01", "ip" => "172.19.181.1", "pass" => "rpi01", "port" => 25545],
         ["user" => "rpi02", "ip" => "172.19.181.2", "pass" => "rpi02", "port" => 25546],
@@ -80,7 +86,6 @@ if (isset($_POST['run'])) {
     ];
     $workers = array_slice($all_workers, 0, $nb_workers);
 
-    // lanncement des workers
     foreach ($workers as $w) {
         shell_exec(sprintf(
             'sshpass -p %s ssh -o StrictHostKeyChecking=no %s@%s "/usr/bin/java WorkerSocket %d > /tmp/worker_%d.log 2>&1 & disown"',
@@ -94,7 +99,6 @@ if (isset($_POST['run'])) {
 
     sleep(2);
 
-    // mastersocket
     $stdin = $nb_workers . "\n";
     foreach ($workers as $w) {
         $stdin .= $w["port"] . "\n";
@@ -102,7 +106,7 @@ if (isset($_POST['run'])) {
     $stdin .= "n\n";
 
     $log = "/tmp/master_output.log";
-    shell_exec("cd /opt/master && printf \"$stdin\" | /usr/bin/java MasterSocket > $log 2>&1");
+    shell_exec("cd /opt/master && printf \"$stdin\" | /usr/bin/java MasterSocket $Ntot > $log 2>&1");  // <-- Ntot ajouté ici
 
     // filtrage de la sortie
     if (file_exists($log)) {

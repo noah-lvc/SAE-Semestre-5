@@ -40,6 +40,12 @@ pre {
     white-space: pre-wrap;
 }
 </style>
+<script>
+function toggleRemote() {
+    const localWorkers = parseInt(document.getElementById('local_workers').value);
+    document.getElementById('remote_workers').disabled = (localWorkers < 4);
+}
+</script>
 </head>
 <body>
 ";
@@ -52,8 +58,11 @@ echo "
 <h1>Calcul de PI – Monte Carlo Distribué</h1>
 
 <form method='post'>
+    <label>Nombre de workers locaux (1 à 4)</label><br><br>
+    <input type='number' id='local_workers' name='local_workers' min='1' max='4' value='1' required onchange='toggleRemote()'><br><br>
+
     <label>Nombre de workers distants (0 à 4)</label><br><br>
-    <input type='number' name='remote_workers' min='0' max='4' value='0' required><br><br>
+    <input type='number' id='remote_workers' name='remote_workers' min='0' max='4' value='0' required><br><br>
 
     <label>Nombre total de tirages par worker (Ntot)</label><br><br>
     <input type='number' name='Ntot' min='1' value='400000' required><br><br>
@@ -64,14 +73,18 @@ echo "
 
 if (isset($_POST['run'])) {
 
+    $local = intval($_POST['local_workers']);
     $remote = intval($_POST['remote_workers']);
     $Ntot   = intval($_POST['Ntot']);
 
+    // Lancement des workers locauw
     $local_ports = [25545, 25546, 25547, 25548];
+    $local_ports = array_slice($local_ports, 0, $local);
     foreach ($local_ports as $p) {
         shell_exec("cd /opt/master && java WorkerSocket $p > /tmp/worker_$p.log 2>&1 &");
     }
 
+    // Workers distants
     $remote_workers = [
         ["user"=>"rpi01","ip"=>"172.19.181.1","pass"=>"rpi01","port"=>25549],
         ["user"=>"rpi02","ip"=>"172.19.181.2","pass"=>"rpi02","port"=>25550],
@@ -93,7 +106,8 @@ if (isset($_POST['run'])) {
 
     sleep(2);
 
-    $total_workers = 4 + $remote;
+    // Master
+    $total_workers = $local + $remote;
 
     $stdin = $total_workers . "\n";
     foreach ($local_ports as $p) $stdin .= "$p\n";
@@ -103,8 +117,8 @@ if (isset($_POST['run'])) {
     $log = "/tmp/master_output.log";
     shell_exec("cd /opt/master && printf \"$stdin\" | java MasterSocket $Ntot > $log 2>&1");
 
+    // Affichage voulu
     if (file_exists($log)) {
-
         $lines = explode("\n", file_get_contents($log));
         $filtered = [];
         foreach ($lines as $line) {
@@ -122,7 +136,7 @@ if (isset($_POST['run'])) {
         }
         echo "<pre>" . htmlspecialchars(implode("\n", $filtered)) . "</pre>";
     } else {
-        echo "<pre>Erreur : aucun log généré.</pre>";
+        echo "<pre>Erreur : aucun résultat</pre>";
     }
 }
 

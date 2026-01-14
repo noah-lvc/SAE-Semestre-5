@@ -68,7 +68,7 @@ echo "
 
 <form method='post'>
     <label>Nombre de workers locaux (1 à 4)</label><br><br>
-    <input type='number' id='local_workers' name='local_workers' min='1' max='4' value='1' required onchange='toggleRemote()'><br><br>
+    <input type='number' id='local_workers' name='local_workers' min='1' max='4' value='4' required onchange='toggleRemote()'><br><br>
 
     <label>Nombre de workers distants (0 à 4)</label><br><br>
     <input type='number' id='remote_workers' name='remote_workers' min='0' max='4' value='0' disabled required><br><br>

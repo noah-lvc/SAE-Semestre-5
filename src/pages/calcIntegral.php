@@ -88,8 +88,20 @@ echo "
 
 if (isset($_POST['run'])) {
 
-    $local = intval($_POST['local_workers']);
+    $local  = intval($_POST['local_workers']);
     $remote = intval($_POST['remote_workers']);
+
+    if ($local < 1 || $local > 4) {
+        die("Nombre de workers locaux invalide");
+    }
+
+    if ($local < 4 && $remote > 0) {
+        die("Workers distants interdits sans 4 workers locaux");
+    }
+
+    if ($remote < 0 || $remote > 4) {
+        die("Nombre de workers distants invalide");
+    }
     $A = $_POST['A'];
     $B = $_POST['B'];
     $totalN = intval($_POST['totalN']);

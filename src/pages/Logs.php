@@ -7,7 +7,7 @@ if (!$cnx) {
 }
 
 if (isset($_POST['download_json'])) {
-    $sql = "SELECT * FROM Logs ORDER BY Date DESC;";
+    $sql = "SELECT * FROM logs ORDER BY date DESC;";
     $resultat = mysqli_query($cnx, $sql);
     $logs = [];
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -86,8 +86,12 @@ echo "
 </form>
 ";
 
-$sql = "SELECT * FROM Logs ORDER BY Date DESC;";
+$sql = "SELECT * FROM logs ORDER BY date DESC;";
 $resultat = mysqli_query($cnx, $sql);
+$resultat = mysqli_query($cnx, $sql);
+if (!$resultat) {
+    die("Erreur SQL : " . mysqli_error($cnx));
+}
 
 echo "<table>";
 $lignes = mysqli_fetch_assoc($resultat);
@@ -101,7 +105,7 @@ if ($lignes) {
     do {
         echo "<tr>";
         foreach ($lignes as $key => $value) {
-            if ($key == 'Date') {
+            if ($key == 'date') {
                 $value = date('d/m/Y H:i:s', strtotime($value));
             }
             echo "<td>$value</td>";

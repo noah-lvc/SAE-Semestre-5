@@ -47,7 +47,8 @@
 | **Scénario nominal**   | 1. L'utilisateur se rends sur le module de calcul <br/> 2. Réalise un calcul <br/> 3. Valide son calcul <br/> 4. Indique qu'il veut stocker le calcul |
 | **Scénario alternatifs** |                                                                                                                                             |
 | **Scénario exceptionnel** |                                                                                                                                             |
-| **Pré-condition**      | La fiche de calcul est désormais enregistrer dans l'historique de l'utilisateur.                                                            |
+| **Pré-condition**      | L'utilisateur est connecté                                                            |
+| **Post-condition**      | La fiche de calcul est désormais enregistrer dans l'historique de l'utilisateur.                                                            |
 
 
 | Cas d'utilisation :| Modification du mot de passe utilisateur                                                                                                             |
@@ -56,21 +57,23 @@
 | **Portée**             | Système ⬛                                                                                                                                   |
 | **Niveau**             | Utlisateur 🌊                                                                                                                               |
 | **Acteur Principale**  | Utilisateur                                                                                                                                 |                                                                          
-| **Scénario nominal**   | 1. L'utilisateur se connecte <br/> 2. Modifie son mot de passe <br/> 3. Valide sa modification <br/> |
+| **Scénario nominal**   | 1. L'utilisateur se connecte <br/> 2. Entre son ancien mot de passe </br> 3. Entre son nouveau mot de passe </br> 4. Entre une deuxième fois son nouveau mot de passe <br/> 5. Confirme sa modification <br/> 6. Un message confirmant sa modification s'affiche </br> |
 | **Scénario alternatifs** |                                                                                                                                             |
-| **Scénario exceptionnel** | 1. L'utilisateur rentre le même mot de passe  <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/> &nbsp; &nbsp; &nbsp; &nbsp; b. Modifie son mot de passe <br/> &nbsp; &nbsp;                               &nbsp; &nbsp; c. Valide sa modification <br/> &nbsp; &nbsp; &nbsp; &nbsp; d. Renvoie une erreur lui indiquant que le mot de passe est le même    |
+| **Scénario exceptionnel** | 1. L'utilisateur se trompe d'ancien mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/>  &nbsp; &nbsp; &nbsp; &nbsp; b. Entre un mauvais ancien mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Entre son nouveau mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; d.  Entre une deuxième fois son nouveau mot de passe </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Confirme sa modification <br/>  &nbsp; &nbsp; &nbsp; &nbsp; f.  Renvoie une erreur Ancien mot de passe incorrect  <br/> 2. Le nouveau mot de passe et sa confirmation ne correspondent pas <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/>  &nbsp; &nbsp; &nbsp; &nbsp; b. Entre l'ancien mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Entre son nouveau mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; d.  Entre un autre mot de passe </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Confirme sa modification <br/>  &nbsp; &nbsp; &nbsp; &nbsp; f.  Renvoie une erreur Les nouveaux mots de passe ne correspondent pas  <br/> |
 | **Pré-condition**      | L'utilisateur a un compte                                                                                                            |
+| **Post-condition**      | Le mot de passe de l'utilisateur a été changé                                                                                                            |
 
 | Cas d'utilisation :| Supression de compte utilisateur par un utilisateur                                                                                                             |
 |--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| **Description**        | Un veut supprimer un compte utilisateur                                                                         |
+| **Description**        | Un utilisateur veut supprimer un compte utilisateur                                                                         |
 | **Portée**             | Système ⬛                                                                                                                                   |
 | **Niveau**             | Utlisateur 🌊                                                                                                                               |
 | **Acteur Principale**  | Utilisateur                                                                                                                                 |                                                                          
-| **Scénario nominal**   | 1. L'utilisateur se connecte <br/> 2. Se rends sur son profil <br/> 3. Supprime son compte <br/> 5. Une confirmation est affiché 
+| **Scénario nominal**   | 1. L'utilisateur se connecte <br/> 2. Se rends sur son profil <br/> 3. Supprime son compte <br/> 4. Confirme la suppression 
 | **Scénario alternatifs** |                                                                                                                                             |
 | **Scénario exceptionnel** |                                                                                                                                             |
-| **Pré-condition**      | Il existe au moins un ou plus compte utilisateur 
+| **Pré-condition**      | L'utilisateur a un compte |
+| **Post-condition**      | Le compte a été supprimé |
 
 **ADMIN WEB**
 
@@ -117,6 +120,7 @@
 |**Scénario alternatif**||
 |**Scénario Exceptionnel**||
 |**Pré-condition**|Possède un compte|
+|**Post-condition**|L'utilisateur est déconnecté et sur la page d'accueil du site|
 
 |Cas d'utilisation :| Verifier la validité du contenu du formulaire de d'inscription |
 |--------------------|-----------------------|
@@ -181,5 +185,5 @@
 |**Acteur Principale**| Cluster de Raspberry Pi |
 |**Scénario Nominal**|1. Les résultats sont transmis au serveur web|
 |**Scénario alternatif**||
-|**Scénario Exceptionnel**|Le cluster est connecté au réseau|
-|**Pré-condition**||
+|**Scénario Exceptionnel**||
+|**Pré-condition**|Le cluster est connecté au réseau|

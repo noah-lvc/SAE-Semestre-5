@@ -42,9 +42,18 @@ pre {
 </style>
 <script>
 function toggleRemote() {
-    const localWorkers = parseInt(document.getElementById('local_workers').value);
-    document.getElementById('remote_workers').disabled = (localWorkers < 4);
+    const local = parseInt(document.getElementById('local_workers').value);
+    const remoteInput = document.getElementById('remote_workers');
+
+    if (local === 4) {
+        remoteInput.disabled = false;
+    } else {
+        remoteInput.value = 0;
+        remoteInput.disabled = true;
+    }
 }
+
+window.onload = toggleRemote;
 </script>
 </head>
 <body>
@@ -62,7 +71,7 @@ echo "
     <input type='number' id='local_workers' name='local_workers' min='1' max='4' value='1' required onchange='toggleRemote()'><br><br>
 
     <label>Nombre de workers distants (0 à 4)</label><br><br>
-    <input type='number' id='remote_workers' name='remote_workers' min='0' max='4' value='0' required><br><br>
+    <input type='number' id='remote_workers' name='remote_workers' min='0' max='4' value='0' disabled required><br><br>
 
     <label>Nombre total de tirages par worker (Ntot)</label><br><br>
     <input type='number' name='Ntot' min='1' value='400000' required><br><br>

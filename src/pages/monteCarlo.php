@@ -68,44 +68,71 @@ echo "
 
 <form method='post'>
     <label>Nombre de workers locaux (1 à 4)</label><br><br>
-    <input type='number' id='local_workers' name='local_workers' min='1' max='4' value='1' required onchange='toggleRemote()'><br><br>
+    <input type='number' id='local_workers' name='local_workers' min='1' max='4' value='4' required onchange='toggleRemote()'><br><br>
 
     <label>Nombre de workers distants (0 à 4)</label><br><br>
     <input type='number' id='remote_workers' name='remote_workers' min='0' max='4' value='0' disabled required><br><br>
 
     <label>Nombre total de tirages par worker (Ntot)</label><br><br>
-    <input type='number' name='Ntot' min='1' value='400000' required><br><br>
+    <input type='number' name='Ntot' min='1' value='100000' required><br><br>
 
     <input type='submit' name='run' value='Lancer le calcul'>
 </form>
 ";
 
 if (isset($_POST['run'])) {
+    $lock = "/tmp/montecarlo.lock";
+
+    if (file_exists($lock)) {
+        echo "<pre>Un calcul est déjà en cours. Réessayez dans quelques secondes.</pre>";
+        exit;
+    }
+
+    file_put_contents($lock, getmypid());
 
     $local  = intval($_POST['local_workers']);
     $remote = intval($_POST['remote_workers']);
+    $Ntot   = intval($_POST['Ntot']);
+
+    // Validations
+    if ($Ntot < 1000 || $Ntot > 5000000) {
+        echo "<pre>Ntot invalide.</pre>";
+        unlink($lock);
+        exit;
+    }
 
     if ($local < 1 || $local > 4) {
+        unlink($lock);
         die("Nombre de workers locaux invalide");
     }
 
     if ($local < 4 && $remote > 0) {
+        unlink($lock);
         die("Workers distants interdits sans 4 workers locaux");
     }
 
     if ($remote < 0 || $remote > 4) {
+        unlink($lock);
         die("Nombre de workers distants invalide");
     }
-    $Ntot   = intval($_POST['Ntot']);
 
-    // Lancement des workers locauw
+    // Kill anciens workers locaux
+    shell_exec("pkill -f 'java WorkerSocket'");
+
+    // Kill anciens workers distants
+    $hosts = ["172.19.181.1","172.19.181.2","172.19.181.3","172.19.181.4"];
+    foreach ($hosts as $ip) {
+        shell_exec("ssh -o StrictHostKeyChecking=no $ip pkill -f 'java WorkerSocket'");
+    }
+
+    // Lancement des workers locaux
     $local_ports = [25545, 25546, 25547, 25548];
     $local_ports = array_slice($local_ports, 0, $local);
     foreach ($local_ports as $p) {
         shell_exec("cd /opt/master && java WorkerSocket $p > /tmp/worker_$p.log 2>&1 &");
     }
 
-    // Workers distants
+    // Lancement des workers distants
     $remote_workers = [
         ["user"=>"rpi01","ip"=>"172.19.181.1","pass"=>"rpi01","port"=>25549],
         ["user"=>"rpi02","ip"=>"172.19.181.2","pass"=>"rpi02","port"=>25550],
@@ -138,7 +165,7 @@ if (isset($_POST['run'])) {
     $log = "/tmp/master_output.log";
     shell_exec("cd /opt/master && printf \"$stdin\" | java MasterSocket $Ntot > $log 2>&1");
 
-    // Affichage voulu
+    // Affichage filtré
     if (file_exists($log)) {
         $lines = explode("\n", file_get_contents($log));
         $filtered = [];
@@ -159,6 +186,9 @@ if (isset($_POST['run'])) {
     } else {
         echo "<pre>Erreur : aucun résultat</pre>";
     }
+
+    // --- Suppression du lock après tout ---
+    unlink($lock);
 }
 
 echo "</div>";

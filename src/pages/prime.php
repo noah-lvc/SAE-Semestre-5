@@ -88,7 +88,7 @@ if (isset($_POST['run_prime'])) {
     } else {
         echo "<h3 style='text-align:center;'>Résultat pour end_number = $end_number</h3>";
         echo "<pre>";
-        $command = "sudo -u mpiuser /usr/bin/mpirun -np 5 -hostfile /home/mpiuser/hosts /usr/bin/python3 /home/mpiuser/prime.py $end_number 2>&1";
+        $command = "sudo -u mpiuser /usr/bin/mpirun --mca plm_rsh_no_tree_spawn 1 -np 5 -hostfile /home/mpiuser/hosts /usr/bin/python3 /home/mpiuser/prime.py $end_number 2>&1";
         $output = shell_exec($command);
         echo htmlspecialchars($output);
         echo "</pre>";

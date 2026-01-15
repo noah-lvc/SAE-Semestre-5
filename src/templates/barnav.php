@@ -130,8 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-connexion'], $_
 
 echo "
 <div class='barnav'>
-    <a href='../pages/accueil.php'><img src='../images/logo.jpg' alt='Logo du site' class='logo'></a>
-    <h1>Nom du site</h1>
+    <a href='../pages/accueil.php'><img src='../images/ClusterLabLogo.png' alt='Logo du site' class='logo'></a>
+    <h1>ClusterLab</h1>
     <nav>
         <ol>
             <li><button type='button' class='button_barnav' onclick='openModal(\"inscription\")'>Inscription</button></li>

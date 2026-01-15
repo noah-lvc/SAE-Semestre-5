@@ -231,7 +231,7 @@ L’utilisateur a déjà effectué des calculs
 - Les résultats des calculs sont affichés
 
 **Statut**
-- ⏳ En cours
+- ❌ Refusé (pas fait)
 
 ---
 
@@ -255,7 +255,7 @@ Un calcul a été réalisé
 - Il apparaît dans l’historique
 
 **Statut**
-- ⏳ En cours
+- ❌ Refusé (pas fait)
 
 ---
 

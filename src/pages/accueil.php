@@ -33,9 +33,9 @@ echo "
 </div>
 
 <div class='TexteExplicatif'>
-    <h1>Bienvenue sur NOM DU SITE, la plateforme de calcul distribué</h1>
+    <h1>Bienvenue sur ClusterLab, la plateforme de calcul distribué</h1>
     <p>C'est plus précisement une application web conçue pour exploiter un cluster Raspberry et réaliser des calculs distribués ou parallèles de manière simple et efficace. Elle permet aux utilisateurs inscrits de lancer des programmes de calcul et d’obtenir des résultats directement dans leur interface web.</p>
-    <p>Grâce à NOM DU SITE, vous pouvez :</p>
+    <p>Grâce à ClusterLab, vous pouvez :</p>
     <ul>
        <li><strong>Lancer des programmes de calcul</strong> : Utilisez nos modules pour exécuter des calculs sur le cluster Raspberry.</li>
        <li><strong>Gérer votre profil</strong> : Créez un compte, modifiez vos informations et accédez à votre tableau de bord personnalisé.</li>

@@ -19,6 +19,14 @@ Les tests concernant :
 
 ne sont volontairement pas inclus dans ce document et font l’objet d’une validation séparée.
 
+De plus, les tests unitaires n’ont pas été mis en place dans ce projet car les fonctions présentes sont principalement orientées interface utilisateur.
+
+La fonction `afficherBarnav()` du fichier fonctions.php dépend de la session PHP et inclut dynamiquement des fichiers HTML/PHP, ce qui empêche son isolement dans un test unitaire.
+
+De même, le code JavaScript repose sur des événements et la manipulation du DOM, ce qui relève davantage de tests fonctionnels ou d’acceptation.
+
+Les comportements du site ont donc été validés via des tests d’acceptation et d’intégration.
+
 ---
 
 ## 2. Périmètre et règles de test

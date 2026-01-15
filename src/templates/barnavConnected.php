@@ -30,9 +30,9 @@ $avatarSrc = $profil_picture ? "../images/pfp/$profil_picture" : "../images/defa
 
 <div class="barnav">
     <a href="../pages/accueil.php">
-        <img src="../images/logo.jpg" alt="Logo du site" class="logo">
+        <img src="../images/ClusterLabLogo.png" alt="Logo du site" class="logo">
     </a>
-    <h1>Nom du site</h1>
+    <h1>ClusterLab</h1>
 
     <div class="barnav-right">
         <div class="menu-burger" onclick="toggleMenu()">

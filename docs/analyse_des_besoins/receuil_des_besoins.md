@@ -59,7 +59,7 @@
 | **Acteur Principale**  | Utilisateur                                                                                                                                 |                                                                          
 | **Scénario nominal**   | 1. L'utilisateur se connecte <br/> 2. Entre son ancien mot de passe </br> 3. Entre son nouveau mot de passe </br> 4. Entre une deuxième fois son nouveau mot de passe <br/> 5. Confirme sa modification <br/> 6. Un message confirmant sa modification s'affiche </br> |
 | **Scénario alternatifs** |                                                                                                                                             |
-| **Scénario exceptionnel** | 1. L'utilisateur se trompe d'ancien mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/>  &nbsp; &nbsp; &nbsp; &nbsp; b. Entre un mauvais ancien mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Entre son nouveau mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; d.  Entre une deuxième fois son nouveau mot de passe </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Confirme sa modification <br/>  &nbsp; &nbsp; &nbsp; &nbsp; f.  Renvoie une erreur Ancien mot de passe incorrect  <br/> 2. Le nouveau mot de passe et sa confirmation ne correspondent pas <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/>  &nbsp; &nbsp; &nbsp; &nbsp; b. Entre l'ancien mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Entre son nouveau mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; d.  Entre un autre mot de passe </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Confirme sa modification <br/>  &nbsp; &nbsp; &nbsp; &nbsp; f.  Renvoie une erreur Les nouveaux mots de passe ne correspondent pas  <br/> |
+| **Scénario exceptionnel** | 1. L'utilisateur se trompe d'ancien mot de passe <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/>  &nbsp; &nbsp; &nbsp; &nbsp; b. Entre un mauvais ancien mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Entre son nouveau mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; d. Entre une deuxième fois son nouveau mot de passe </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Confirme sa modification <br/>  &nbsp; &nbsp; &nbsp; &nbsp; f. Renvoie une erreur Ancien mot de passe incorrect <br/> 2. Le nouveau mot de passe et sa confirmation ne correspondent pas <br/>  &nbsp; &nbsp; &nbsp; &nbsp; a. L'utilisateur se connecte <br/>  &nbsp; &nbsp; &nbsp; &nbsp; b. Entre l'ancien mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Entre son nouveau mot de passe <br/> &nbsp; &nbsp; &nbsp; &nbsp; d. Entre un autre mot de passe </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Confirme sa modification <br/>  &nbsp; &nbsp; &nbsp; &nbsp; f. Renvoie une erreur Les nouveaux mots de passe ne correspondent pas  <br/> |
 | **Pré-condition**      | L'utilisateur a un compte                                                                                                            |
 | **Post-condition**      | Le mot de passe de l'utilisateur a été changé                                                                                                            |
 
@@ -94,8 +94,8 @@
 | **Portée**             | Système ⬛                                                                                                                                   |
 | **Niveau**             | Utlisateur 🌊                                                                                                                               |
 | **Acteur Principale**  | Administrateur Web                                                                                                                                 |                                                                          
-| **Scénario nominal**   | 1. L'admin se connecte <br/> 2. Se rends sur la page des gestion des comptes <br/> 3. Crée un nouveau compte <br/> 4. Valide la création <br/> 5. Une confirmation est affiché |
-| **Scénario alternatifs** 
+| **Scénario nominal**   | 1. L'admin se connecte <br/> 2. Se rends sur la page de création de comptes <br/> 3. Entre un login <br/> 4. Entre un mot de passe <br/> 5. Valide le mot de passe <br/> 6. Valide la création <br/> 7. Une confirmation est affiché |
+| **Scénario alternatifs** | 1. L'admin souhaite ajouter plusieurs utilisateurs à la fois avec un fichier CSV </br> &nbsp; &nbsp; &nbsp; &nbsp; a. L'admin se connecte <br/> &nbsp; &nbsp; &nbsp; &nbsp; b. Se rends sur la page de création de comptes <br/> &nbsp; &nbsp; &nbsp; &nbsp; c. Sélectionne le fichier CSV souhaité <br/>  &nbsp; &nbsp; &nbsp; &nbsp; d. Confirme l'importation </br> &nbsp; &nbsp; &nbsp; &nbsp; e. Une confirmation est affichée  <br/> |
 | **Scénario exceptionnel** |                                                                                                                                             |
 | **Pré-condition**      |                                                                                                                                                |
 
@@ -104,7 +104,7 @@
 |**Description**| Enresgitrement d'un fichier log décrivant une action spécifique prédéterminée dans le système |
 |**Portée**| Sous-partie 🔩 |
 |**Niveau**| Sous-fonction 🐟 |
-|**Acteur Principal**| Administrateur Web|
+|**Acteur Principal**| Administrateur Système |
 |**Scénario Nominal**|1. Un visiteur accède au formulaire d'inscription du site</br>2. Le visiteur créer un nouveau compte</br>|
 |**Scénario Alternatif**|I.1. Un admistrateur Web se connecte au compte ***adminweb***</br>2. L'administrateur supprime un compte
 |**Scénario Exceptionnel**||
